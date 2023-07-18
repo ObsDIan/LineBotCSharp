@@ -1,20 +1,37 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using LineBotMessage.Domain;
+using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
+using LineBotMessage.Enum;
+using LineBotMessage.Providers;
+using LineBotMessage.Dtos.Webhook;
 
-namespace LineBot.Controllers
+namespace LineBotMessage.Controllers
 {
-	public class LineBotController : Controller
-	{
-		private readonly string channelAccessToken = "Your channel access token";
-		private readonly string channelSecret = "Your channel secret";
+	[Route("api/[Controller]")]
+    [ApiController]
+    public class LineBotController : ControllerBase
+    {
 
+
+		private readonly LineBotService _lineBotService;
+		// constructor
 		public LineBotController()
 		{
+			_lineBotService = new LineBotService();
+		}
 
-		}
 		[HttpPost("Webhook")]
-		public IActionResult Webhook()
-		{
-			return Ok();
-		}
-	}
+        public async Task<IActionResult> Webhook(WebhookRequestBodyDto body)
+        {
+            await _lineBotService.ReceiveWebhook(body);
+            return Ok();
+        }
+
+        [HttpPost("SendMessage/Broadcast")]
+        public IActionResult Broadcast([Required] string messageType, object body)
+        {
+            _lineBotService.BroadcastMessageHandler(messageType, body);
+            return Ok();
+        }
+    }
 }
