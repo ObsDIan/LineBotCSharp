@@ -3,6 +3,8 @@ using AskApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using AskApi.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Azure;
+using System.Text.RegularExpressions;
 
 namespace AskApi.Controllers
 {
@@ -39,13 +41,14 @@ namespace AskApi.Controllers
 			var SimDatas = await _sim.SimMethod(inputEmbedding, embeddings);
 
 			SimDatas = SimDatas.OrderBy(x => x.Similarity > 0.8).Take(5).ToList();
+			var container = new List<string>();
 
 			if (SimDatas.Count == 0)
 			{
-				return "無相關問題!!";
+				container.Add("依照使用者問題");
+                container.Add("回答 補全");
+                //return "無相關問題!!";
 			}
-			var container = new List<string>();
-
 			foreach (var s in SimDatas)
 			{
 				var temp = await _ctx.Embeddings.FirstAsync(x => x.EmbeddingId == s.DbId);
@@ -58,7 +61,7 @@ namespace AskApi.Controllers
 			};
 
 			var result = await _gpt.GetAnser(send);
-
+			//result = Regex.Replace(result, @"[", string.Empty);
 			return result;
 		}
 	}

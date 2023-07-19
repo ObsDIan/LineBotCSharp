@@ -6,7 +6,7 @@ using LineBotMessage.Dtos.Messages.Request;
 using LineBotMessage.Dtos.Messages;
 using LineBotMessage.Dtos.Webhook;
 using Line.Messaging;
-
+using System.Text.RegularExpressions;
 
 namespace LineBotMessage.Domain
 {
@@ -36,7 +36,9 @@ namespace LineBotMessage.Domain
                         var response = await client.SendAsync(request);
                         response.EnsureSuccessStatusCode();
                         var responseBody = await response.Content.ReadAsStringAsync();
-                        var replyMessage = new ReplyMessageRequestDto<TextMessageDto>()
+						responseBody = Regex.Replace(responseBody, $"\\\"", "");
+						Console.WriteLine($"{DateTime.Now}||問:{eventObject.Message.Text},答:{responseBody}");
+						var replyMessage = new ReplyMessageRequestDto<TextMessageDto>()
                         {
                             ReplyToken = eventObject.ReplyToken,
                             Messages = new List<TextMessageDto>
@@ -44,7 +46,7 @@ namespace LineBotMessage.Domain
                                 new TextMessageDto(){Text = responseBody}
                             }
                         };
-                        ReplyMessageHandler("text",replyMessage);
+						ReplyMessage(replyMessage);
                         break;
                     case WebhookEventTypeEnum.Unsend:
                         Console.WriteLine($"使用者{eventObject.Source.UserId}在聊天室收回訊息！");
