@@ -32,12 +32,14 @@ namespace LineBotMessage.Domain
                 switch (eventObject.Type)
                 {
                     case WebhookEventTypeEnum.Message:
-                        var request = new HttpRequestMessage(HttpMethod.Post, $@"http://localhost:5214/WeatherForecast/Anser?input={eventObject.Message.Text}");
+                        var request = new HttpRequestMessage(HttpMethod.Post, $@"https://askapi.azurewebsites.net/WeatherForecast/Anser?input={eventObject.Message.Text}");
                         var response = await client.SendAsync(request);
                         response.EnsureSuccessStatusCode();
                         var responseBody = await response.Content.ReadAsStringAsync();
-						responseBody = Regex.Replace(responseBody, $"\\\"", "");
-						Console.WriteLine($"{DateTime.Now}||問:{eventObject.Message.Text},答:{responseBody}");
+						var r1 = Regex.Replace(responseBody, $"\\\"", "");
+                        var result = Regex.Replace(r1, $"\n\n", "\n");
+						
+						Console.WriteLine($"{DateTime.Now}||問:{eventObject.Message.Text},答:{result}");
 						var replyMessage = new ReplyMessageRequestDto<TextMessageDto>()
                         {
                             ReplyToken = eventObject.ReplyToken,

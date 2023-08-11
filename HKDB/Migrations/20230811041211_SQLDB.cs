@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HKDB.Migrations
 {
     /// <inheritdoc />
-    public partial class HKDB : Migration
+    public partial class SQLDB : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -171,7 +171,7 @@ namespace HKDB.Migrations
             migrationBuilder.InsertData(
                 table: "Chats",
                 columns: new[] { "ChatId", "ApplicationId", "ChatName", "ChatTime", "UserId" },
-                values: new object[] { 1, "1", null, new DateTime(2023, 7, 17, 23, 2, 42, 61, DateTimeKind.Local).AddTicks(4696), 1 });
+                values: new object[] { 1, "1", null, new DateTime(2023, 8, 11, 12, 12, 11, 351, DateTimeKind.Local).AddTicks(1340), 1 });
 
             migrationBuilder.InsertData(
                 table: "AiFiles",

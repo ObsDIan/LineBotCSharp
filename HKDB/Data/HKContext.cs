@@ -27,10 +27,11 @@ namespace HKDB.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=HKDB;TrustServerCertificate=true;MultipleActiveResultSets=true;Trusted_Connection=True;");
-                //optionsBuilder.UseSqlServer("Data Source=tcp:onepagedemodbserver.database.windows.net,1433;Initial Catalog=OneChatPage_db;User Id=a29879350@onepagedemodbserver;Password=a55527555@");
-                //optionsBuilder.UseSqlServer("Data Source=tcp:onechatpagedbserver.database.windows.net,1433;Initial Catalog=OneChatPage_db;User Id=a29879350@onechatpagedbserver;Password=a55527555@");
-                base.OnConfiguring(optionsBuilder);
+                //optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=HKDB;TrustServerCertificate=true;MultipleActiveResultSets=true;Trusted_Connection=True;");
+				//optionsBuilder.UseSqlServer("Data Source=tcp:onepagedemodbserver.database.windows.net,1433;Initial Catalog=OneChatPage_db;User Id=a29879350@onepagedemodbserver;Password=a55527555@");
+				//optionsBuilder.UseSqlServer("Data Source=tcp:onechatpagedbserver.database.windows.net,1433;Initial Catalog=OneChatPage_db;User Id=a29879350@onechatpagedbserver;Password=a55527555@");
+				optionsBuilder.UseSqlServer("Data Source=tcp:askapidbserver.database.windows.net,1433;Initial Catalog=AskApi_db;User Id=a29879350@askapidbserver;Password=Aa55527555");
+				base.OnConfiguring(optionsBuilder);
             }
         }
 

@@ -17,7 +17,7 @@ namespace HKDB.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.9")
+                .HasAnnotation("ProductVersion", "7.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -129,7 +129,7 @@ namespace HKDB.Migrations
                         {
                             ChatId = 1,
                             ApplicationId = "1",
-                            ChatTime = new DateTime(2023, 7, 17, 23, 2, 42, 61, DateTimeKind.Local).AddTicks(4696),
+                            ChatTime = new DateTime(2023, 8, 11, 12, 12, 11, 351, DateTimeKind.Local).AddTicks(1340),
                             UserId = 1
                         });
                 });
